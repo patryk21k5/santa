@@ -13,18 +13,49 @@
 	padding: 0;
 	box-sizing: border-box;
 	font-family: 'Poppins', sans-serif;
+	-webkit-text-size-adjust: 100%;
+	touch-action: manipulation;
+}
+
+html {
+	height: 100%;
+	height: -webkit-fill-available;
 }
 
 body {
 	background: linear-gradient(135deg, var(--background-dark), var(--background-light));
 	color: var(--text-color);
 	min-height: 100vh;
+	min-height: -webkit-fill-available;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 10px;
+	padding: 20px;
+	margin: 0;
+	overflow: hidden;
 	position: relative;
-	overflow-x: hidden;
+}
+
+/* Animacja śniegu */
+.snowflake {
+	position: fixed;
+	top: -10px;
+	color: #fff;
+	text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+	pointer-events: none;
+	animation: snowfall linear infinite;
+	z-index: 1;
+}
+
+@keyframes snowfall {
+	0% {
+		transform: translateY(-10vh);
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(100vh);
+		opacity: 0.3;
+	}
 }
 
 #passwordScreen {
@@ -45,14 +76,17 @@ body {
 .room {
 	background: var(--card-background);
 	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
 	padding: 1.5rem;
 	border-radius: 15px;
 	text-align: center;
-	width: 100%;
+	width: 90%;
 	max-width: 500px;
 	margin: 10px auto;
 	border: 2px solid rgba(255, 255, 255, 0.1);
 	box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+	position: relative;
+	z-index: 2;
 }
 
 .container {
@@ -61,11 +95,12 @@ body {
 	padding: 1rem;
 	margin: 0 auto;
 	display: none;
+	position: relative;
+	z-index: 2;
 }
 
 .room {
 	display: none;
-	margin-bottom: 20px;
 }
 
 .room.active {
@@ -73,23 +108,12 @@ body {
 	animation: fadeInScale 0.6s ease-out;
 }
 
-h1 {
-	font-size: clamp(1.3rem, 4vw, 2rem);
-	margin-bottom: 1rem;
-	color: var(--primary-color);
-	text-shadow: 0 0 15px rgba(255, 77, 77, 0.3);
-}
-
+h1,
 h2 {
-	font-size: clamp(1.2rem, 3.5vw, 1.8rem);
-	margin-bottom: 1rem;
 	color: var(--primary-color);
-}
-
-.love-message {
-	font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-	margin: 1rem 0;
-	line-height: 1.6;
+	margin-bottom: 1.5rem;
+	font-size: clamp(1.3rem, 4vw, 2rem);
+	text-shadow: 0 0 15px rgba(255, 77, 77, 0.3);
 }
 
 .input-container {
@@ -102,12 +126,19 @@ h2 {
 input {
 	width: 100%;
 	padding: 0.8rem 1rem;
-	font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+	font-size: 16px;
 	background: rgba(255, 255, 255, 0.1);
 	border: 2px solid rgba(255, 255, 255, 0.1);
 	border-radius: 10px;
 	color: var(--text-color);
 	transition: all 0.3s ease;
+	-webkit-appearance: none;
+}
+
+input:focus {
+	outline: none;
+	border-color: var(--primary-color);
+	box-shadow: 0 0 15px rgba(255, 77, 77, 0.3);
 }
 
 .btn {
@@ -116,65 +147,67 @@ input {
 	border: none;
 	padding: 0.8rem 1.5rem;
 	border-radius: 8px;
-	font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+	font-size: 16px;
 	font-weight: 600;
 	cursor: pointer;
 	transition: all 0.3s ease;
 	margin: 0.8rem 0;
-	width: auto;
-	min-width: 150px;
+	-webkit-tap-highlight-color: transparent;
 }
 
-.btn:hover,
-.btn:focus {
+.btn:hover {
 	transform: translateY(-2px);
 	box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
 }
 
-.icon {
-	font-size: clamp(2rem, 6vw, 3rem);
-	color: var(--primary-color);
-	margin: 0.8rem;
-	animation: float 3s ease-in-out infinite;
-}
-
 .riddle {
-	font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+	font-style: italic;
+	margin: 1.5rem 0;
 	line-height: 1.8;
 	color: #ddd;
-	margin: 1.2rem 0;
+	font-size: clamp(0.9rem, 2.5vw, 1.1rem);
 	padding: 0 10px;
 }
 
 .hint {
+	color: #888;
 	font-size: clamp(0.8rem, 2vw, 0.9rem);
-	margin-top: 0.8rem;
+	margin-top: 1rem;
+	opacity: 0;
+	transform: translateY(10px);
+	transition: all 0.3s ease;
+}
+
+.hint.show {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.error-message {
+	color: var(--primary-color);
+	font-size: 0.9rem;
+	margin-top: 0.5rem;
+	animation: fadeIn 0.3s ease-out;
+}
+
+.success-message {
+	color: #4caf50;
+	font-size: 1.1rem;
+	margin-top: 1rem;
+	animation: fadeIn 0.3s ease-out;
 }
 
 .prizes {
 	list-style: none;
-	margin: 1.2rem 0;
-}
-
-.prizes li {
-	font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-	margin: 0.6rem 0;
-}
-
-.secret-code {
-	font-size: clamp(1.5rem, 5vw, 2.5rem);
 	margin: 1.5rem 0;
 }
 
-/* Poprawione animacje dla lepszej wydajności */
-@keyframes float {
-	0%,
-	100% {
-		transform: translateY(0);
-	}
-	50% {
-		transform: translateY(-8px);
-	}
+.prizes li {
+	margin: 0.8rem 0;
+	font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+	opacity: 0;
+	animation: fadeIn 0.5s ease-out forwards;
+	animation-delay: calc(var(--i) * 0.2s);
 }
 
 @keyframes fadeInScale {
@@ -188,37 +221,43 @@ input {
 	}
 }
 
-/* Media queries dla lepszej responsywności */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
 @media (max-width: 480px) {
 	.password-container,
 	.room {
-		padding: 1.2rem;
+		width: 95%;
+		padding: 1rem;
 	}
 
-	.container {
-		padding: 0.8rem;
+	body {
+		padding: 10px;
+	}
+
+	input {
+		font-size: 16px;
+		padding: 0.7rem;
 	}
 
 	.btn {
 		padding: 0.7rem 1.2rem;
 	}
 
-	.icon {
-		margin: 0.6rem;
-	}
-
-	input {
-		padding: 0.7rem;
+	.snowflake {
+		font-size: 14px !important;
 	}
 }
 
-@media (max-width: 350px) {
-	.password-container,
-	.room {
-		padding: 1rem;
-	}
-
-	.input-container {
-		width: 95%;
+@media (hover: none) {
+	.btn:hover {
+		transform: none;
+		box-shadow: none;
 	}
 }
