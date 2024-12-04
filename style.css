@@ -14,7 +14,6 @@
 	box-sizing: border-box;
 	font-family: 'Poppins', sans-serif;
 	-webkit-text-size-adjust: 100%;
-	touch-action: manipulation;
 }
 
 html {
@@ -27,19 +26,13 @@ body {
 	color: var(--text-color);
 	min-height: 100vh;
 	min-height: -webkit-fill-available;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 20px;
-	margin: 0;
+	position: fixed;
+	width: 100%;
 	overflow: hidden;
-	position: relative;
 }
 
-/* Animacja śniegu */
 .snowflake {
 	position: fixed;
-	top: -10px;
 	color: #fff;
 	text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 	pointer-events: none;
@@ -69,7 +62,6 @@ body {
 	justify-content: center;
 	align-items: center;
 	z-index: 1000;
-	padding: 15px;
 }
 
 .password-container,
@@ -87,20 +79,27 @@ body {
 	box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 	position: relative;
 	z-index: 2;
+	transform: translateY(-10%);
 }
 
 .container {
 	width: 100%;
-	max-width: 600px;
+	height: 100vh;
 	padding: 1rem;
 	margin: 0 auto;
 	display: none;
-	position: relative;
+	position: fixed;
+	top: 0;
+	left: 0;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
 	z-index: 2;
 }
 
 .room {
 	display: none;
+	margin: 20px auto;
+	transform: none;
 }
 
 .room.active {
@@ -160,6 +159,13 @@ input:focus {
 	box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
 }
 
+.icon {
+	font-size: 3rem;
+	margin: 1rem;
+	color: var(--primary-color);
+	animation: float 3s ease-in-out infinite;
+}
+
 .riddle {
 	font-style: italic;
 	margin: 1.5rem 0;
@@ -210,14 +216,13 @@ input:focus {
 	animation-delay: calc(var(--i) * 0.2s);
 }
 
-@keyframes fadeInScale {
-	from {
-		opacity: 0;
-		transform: scale(0.98) translateY(10px);
+@keyframes float {
+	0%,
+	100% {
+		transform: translateY(0);
 	}
-	to {
-		opacity: 1;
-		transform: scale(1) translateY(0);
+	50% {
+		transform: translateY(-8px);
 	}
 }
 
@@ -230,14 +235,32 @@ input:focus {
 	}
 }
 
+@keyframes fadeInScale {
+	from {
+		opacity: 0;
+		transform: scale(0.98) translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1) translateY(0);
+	}
+}
+
 @media (max-width: 480px) {
-	.password-container,
-	.room {
-		width: 95%;
-		padding: 1rem;
+	body {
+		position: fixed;
+		width: 100%;
+		height: 100%;
 	}
 
-	body {
+	.password-container,
+	.room {
+		margin: 10px auto;
+		padding: 1rem;
+		width: 95%;
+	}
+
+	.container {
 		padding: 10px;
 	}
 
@@ -260,4 +283,25 @@ input:focus {
 		transform: none;
 		box-shadow: none;
 	}
+}
+
+@supports (-webkit-touch-callout: none) {
+	.container {
+		height: -webkit-fill-available;
+	}
+
+	body {
+		min-height: -webkit-fill-available;
+	}
+}
+
+.love-message {
+	font-size: 1.2rem;
+	margin: 1rem 0;
+	line-height: 1.6;
+}
+
+.secret-code {
+	font-size: clamp(1.5rem, 5vw, 2.5rem);
+	margin: 1.5rem 0;
 }
