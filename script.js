@@ -1,28 +1,114 @@
 class EscapeRoom {
 	constructor() {
 		this.accessPassword = 'chalina'
-		this.answers = {
-			1: {
-				answer: 'eren7',
-				hint: 'Imię głównego bohatera + numer odcinka transformacji',
-				message: 'Świetnie! Pierwszy prezent jest Twój!',
+		this.allPuzzleSets = {
+			set1: {
+				1: {
+					answer: 'eren7',
+					hint: 'Imię głównego bohatera + numer odcinka transformacji',
+					message: 'Świetnie! Pierwszy prezent jest Twój!',
+				},
+				2: {
+					answer: 'jungkook97',
+					hint: 'Imię najmłodszego + rok urodzenia',
+					message: 'Brawo! Drugi prezent odkryty!',
+				},
+				3: {
+					answer: 'marine2021',
+					hint: 'Nazwa morskiej serii + rok wydania',
+					message: 'Udało się! Ostatni prezent czeka!',
+				},
 			},
-			2: {
-				answer: 'jungkook97',
-				hint: 'Imię najmłodszego + rok urodzenia',
-				message: 'Brawo! Drugi prezent odkryty!',
+			set2: {
+				1: {
+					answer: 'titan150',
+					hint: 'Nazwa tytana atakującego + wysokość muru',
+					message: 'Wspaniale! Pierwszy prezent jest Twój!',
+				},
+				2: {
+					answer: 'bts2013',
+					hint: 'Nazwa zespołu + rok debiutu',
+					message: 'Świetnie! Drugi prezent czeka!',
+				},
+				3: {
+					answer: 'angel2006',
+					hint: 'Nazwa figurek + rok pierwszej serii',
+					message: 'Brawo! Ostatni prezent odkryty!',
+				},
 			},
-			3: {
-				answer: 'marine2021',
-				hint: 'Nazwa morskiej serii + rok wydania',
-				message: 'Udało się! Ostatni prezent czeka!',
+			set3: {
+				1: {
+					answer: 'mikasa104',
+					hint: 'Imię przyjaciółki + numer oddziału',
+					message: 'Doskonale! Pierwszy prezent jest Twój!',
+				},
+				2: {
+					answer: 'dynamite20',
+					hint: 'Nazwa hitu + rok wydania',
+					message: 'Super! Drugi prezent odkryty!',
+				},
+				3: {
+					answer: 'blind180',
+					hint: 'Typ pudełka + ilość stopni obrotu',
+					message: 'Udało się! Trzeci prezent czeka!',
+				},
+			},
+			set4: {
+				1: {
+					answer: 'levi160',
+					hint: 'Imię kapitana + jego wzrost w centymetrach',
+					message: 'Doskonale! Pierwszy prezent jest Twój!',
+				},
+				2: {
+					answer: 'butter21',
+					hint: 'Nazwa piosenki + rok wydania',
+					message: 'Fantastycznie! Drugi prezent odkryty!',
+				},
+				3: {
+					answer: 'sonny18',
+					hint: 'Nazwa serii + liczba wariantów',
+					message: 'Wspaniale! Ostatni prezent czeka!',
+				},
+			},
+			set5: {
+				1: {
+					answer: 'historia845',
+					hint: 'Imię królowej + rok upadku muru',
+					message: 'Świetnie! Pierwszy prezent jest Twój!',
+				},
+				2: {
+					answer: 'army7',
+					hint: 'Nazwa fandomu + liczba członków',
+					message: 'Idealnie! Drugi prezent odkryty!',
+				},
+				3: {
+					answer: 'zodiac12',
+					hint: 'Nazwa kolekcji + liczba znaków',
+					message: 'Brawo! Ostatni prezent na Ciebie czeka!',
+				},
 			},
 		}
+
+		const sets = Object.keys(this.allPuzzleSets)
+		const randomSet = sets[Math.floor(Math.random() * sets.length)]
+		this.answers = this.allPuzzleSets[randomSet]
+		this.selectedSet = randomSet.replace('set', '')
+
 		this.currentRoom = 1
 		this.attempts = {}
 		this.maxAttempts = 30
 		this.setupEventListeners()
 		this.createSnowflakes()
+		this.showSelectedRiddles()
+	}
+
+	showSelectedRiddles() {
+		document.querySelectorAll('.riddle').forEach(riddle => {
+			riddle.style.display = 'none'
+			if (riddle.getAttribute('data-set') === this.selectedSet) {
+				riddle.style.display = 'block'
+			}
+		})
 	}
 
 	setupEventListeners() {
@@ -171,5 +257,4 @@ class EscapeRoom {
 	}
 }
 
-// Inicjalizacja gry
 const game = new EscapeRoom()
