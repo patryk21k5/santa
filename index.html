@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎄 Świąteczna niespodzianka</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div id="passwordScreen">
+        <div class="password-container">
+            <i class="fas fa-gift icon"></i>
+            <h2>🎄 Dla mojej ukochanej 🎄</h2>
+            <p class="love-message">
+                Ho ho ho! Przygotowałem dla Ciebie wyjątkową świąteczną niespodziankę!
+                Za tymi drzwiami czekają na Ciebie 3 zagadki prowadzące do prezentów.
+            </p>
+            <p>Masz czas do Wigilii na rozwiązanie wszystkich zagadek! ❤️</p>
+            <div class="input-container">
+                <input type="password" id="passwordInput" placeholder="Wpisz hasło dostępu...">
+            </div>
+            <button class="btn" id="startButton">Rozpocznij przygodę!</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="room1" class="room">
+            <i class="fas fa-dragon icon"></i>
+            <h1>🎁 Zagadka 1: Tytaniczny Problem</h1>
+            <div class="puzzle-content">
+                <p>By odkryć pierwszy prezent, musisz połączyć wiedzę o świecie za murami:</p>
+                <p class="riddle">
+                    "Pierwszy raz gdy moc przebudziła się w głębi,<br>
+                    Pod gruzami miasta rozpacz się kłębi.<br>
+                    Oblicz sumę: odcinek przemiany i ściany wysokość,<br>
+                    A do cyfry dodaj imię tego, co budzi w ludziach trwogę."
+                </p>
+                <div class="input-container">
+                    <input type="text" id="answer1" placeholder="Wpisz odpowiedź...">
+                </div>
+                <button class="btn" onclick="game.checkAnswer(1)">Sprawdź</button>
+                <p class="hint"></p>
+            </div>
+        </div>
+
+        <div id="room2" class="room">
+            <i class="fas fa-music icon"></i>
+            <h1>🎁 Zagadka 2: K-popowa Łamigłówka</h1>
+            <div class="puzzle-content">
+                <p>Drugi prezent czeka na odkrycie!</p>
+                <p class="riddle">
+                    "Złoty maknae grupy tej,<br>
+                    W rocznym cyklu przyszedł świat zdobyć.<br>
+                    Imię z datą połącz w mig,<br>
+                    By do prezentu drugiego się dobić."
+                </p>
+                <div class="input-container">
+                    <input type="text" id="answer2" placeholder="Wpisz odpowiedź...">
+                </div>
+                <button class="btn" onclick="game.checkAnswer(2)">Sprawdź</button>
+                <p class="hint"></p>
+            </div>
+        </div>
+
+        <div id="room3" class="room">
+            <i class="fas fa-water icon"></i>
+            <h1>🎁 Zagadka 3: Morska Tajemnica</h1>
+            <div class="puzzle-content">
+                <p>Ostatnia zagadka kryje finałowy prezent!</p>
+                <p class="riddle">
+                    "W głębinach morza ukryty skarb czeka,<br>
+                    Rok premiery z nazwą kolekcji się splata.<br>
+                    Marine z datą złącz w jeden szyfr,<br>
+                    By ostatni prezent mógł już do Ciebie trafić."
+                </p>
+                <div class="input-container">
+                    <input type="text" id="answer3" placeholder="Wpisz odpowiedź...">
+                </div>
+                <button class="btn" onclick="game.checkAnswer(3)">Sprawdź</button>
+                <p class="hint"></p>
+            </div>
+        </div>
+
+        <div id="final" class="room">
+            <i class="fas fa-star icon"></i>
+            <h1>🎄 Gratulacje! 🎄</h1>
+            <div id="confetti"></div>
+            <p>Udało Ci się rozwiązać wszystkie zagadki!</p>
+            <p>Twój kod do prezentów to:</p>
+            <h2 class="secret-code">Mikołaj Bubuś</h2>
+            <p class="final-message">
+                Wesołych Świąt, kochanie! ❤️<br>
+                Czekają na Ciebie:
+            <ul class="prizes">
+                <li style="--i:1">🎁 Tajemnica</li>
+                <li style="--i:2">🎁 Tajemnica</li>
+                <li style="--i:3">🎁 Tajemnica</li>
+            </ul>
+            </p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
